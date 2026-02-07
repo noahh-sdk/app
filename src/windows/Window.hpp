@@ -2,19 +2,20 @@
 
 #include <Windows.h>
 #include <string>
+#include <unordered_map>
+#include "../widgets/Widget.hpp"
 
-class Window {
+class Window : public Widget {
 protected:
     std::string m_title;
-
-    bool init(std::string const&, int, int);
 
 public:
     Window(std::string const& title, int width = 600, int height = 400);
     Window() = delete;
 
-    LRESULT proc(HWND, UINT, WPARAM, LPARAM);
+    void center();
+    void setTitle(std::string const&);
 
-    static void run();
+    static LRESULT CALLBACK recurseWndProc(Widget*, HWND, UINT, WPARAM, LPARAM);
     static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 };
